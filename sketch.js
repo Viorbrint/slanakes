@@ -1,6 +1,7 @@
 const BOARDWIDTH = 15;
 const CELLWIDTH = 40;
 const LATENCY = 90;
+let font;
 
 let game;
 const dir = {
@@ -24,10 +25,11 @@ const dir = {
 
 function setup() 
 {
+	font = loadFont('assets/Honk-Regular.ttf');
 	angleMode(DEGREES);
-	createCanvas(CELLWIDTH * BOARDWIDTH, CELLWIDTH * BOARDWIDTH);
+	createCanvas(CELLWIDTH * BOARDWIDTH, CELLWIDTH * BOARDWIDTH + 100);
 	stroke(255, 255, 255);
-	game = new Game(BOARDWIDTH, CELLWIDTH);
+	game = new Game(BOARDWIDTH, CELLWIDTH, font);
 }
 // adfadsf
 
@@ -47,7 +49,7 @@ let lastTime = 0;
 function draw()
 {
 	if(game.over) {
-		game = new Game(BOARDWIDTH, CELLWIDTH);
+		game = new Game(BOARDWIDTH, CELLWIDTH, font);
 	}
 	game.draw();
 	if(millis() - lastTime >= LATENCY) {
