@@ -1,5 +1,7 @@
 class Game {
 	constructor(size, cellSize, font) {
+		this.highscore = +localStorage.getItem('high-score');
+		if(!this.highscore) this.highscore = 0;
 		this.font = font;
 		this.cellSize = cellSize;
 		this.size = size;
@@ -20,6 +22,15 @@ class Game {
 		this.COLOR_FOOD = color(219, 96, 149);
 		this.generateFood(1);
 	}
+
+	end() {
+		const score = this.snake.length - 3;
+		if (score > this.highscore) {
+			this.highscore = score;
+			localStorage.setItem('high-score', this.highscore);
+		}
+	}
+
 	draw() {
 		this.drawScore();
 		for (let i = 0; i < this.size; i++) {
@@ -40,9 +51,11 @@ class Game {
 		rect(0, this.cellSize * this.size, this.cellSize * this.size, 100);
 		fill(this.COLOR_FOOD);
 		textFont(this.font);
-		textSize(64);
 		textAlign(CENTER, CENTER);
-		text(`Score: ${this.snake.length - 3}`, this.cellSize * this.size / 2, this.cellSize * this.size + 50);
+		textSize(58);
+		text(`Highscore: ${this.highscore} Score: ${this.snake.length - 3}`, this.cellSize * this.size / 2, this.cellSize * this.size + 33);
+		// textSize(64);
+		// text(`Highscore: ${this.highscore}`, this.cellSize * this.size / 2, this.cellSize * this.size + 66);
 	}
 
 	changeDir(dir) {
@@ -65,9 +78,6 @@ class Game {
 
 		if (newHead != this.snake[1]) {
 			this.dir = dir;
-		}
-		else {
-			console.log("asdf");
 		}
 	}
 

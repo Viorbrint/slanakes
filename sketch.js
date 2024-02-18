@@ -31,7 +31,6 @@ function setup()
 	stroke(255, 255, 255);
 	game = new Game(BOARDWIDTH, CELLWIDTH, font);
 }
-// adfadsf
 
 function keyPressed() {
 	if (keyCode === UP_ARROW) {
@@ -49,6 +48,7 @@ let lastTime = 0;
 function draw()
 {
 	if(game.over) {
+		game.end();
 		game = new Game(BOARDWIDTH, CELLWIDTH, font);
 	}
 	game.draw();
